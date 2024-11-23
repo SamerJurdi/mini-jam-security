@@ -1,46 +1,72 @@
 using UnityEngine;
 
-public class CameraBounds : MonoBehaviour
+public class CamBoundsController : MonoBehaviour
 {
-    public Camera mainCamera; // Reference to your camera
-    private BoxCollider2D cameraBoundsCollider; // BoxCollider2D to restrict movement
+    private BoxCollider2D topWall, bottomWall, leftWall, rightWall;
 
     void Start()
     {
-        // Create and attach the BoxCollider2D at runtime if not already set up
-        if (mainCamera != null)
-        {
-            CreateBoundsCollider();
-        }
+        CreateBounds();
     }
 
-    void CreateBoundsCollider()
+    void CreateBounds()
     {
-        // Create a BoxCollider2D if it doesn't exist
-        cameraBoundsCollider = gameObject.GetComponent<BoxCollider2D>();
-        if (cameraBoundsCollider == null)
-        {
-            cameraBoundsCollider = gameObject.AddComponent<BoxCollider2D>();
-        }
+        // Get the camera's dimensions in world space
+        Camera cam = Camera.main;
+        float cameraHeight = cam.orthographicSize * 2;
+        float cameraWidth = cameraHeight * cam.aspect;
 
-        // Set the collider as a trigger
-        cameraBoundsCollider.isTrigger = true;
+        Vector3 cameraPosition = cam.transform.position;
 
-        // Calculate the camera's world space boundaries
-        float cameraHeight = mainCamera.orthographicSize * 2;
-        float cameraWidth = cameraHeight * mainCamera.aspect;
-
-        // Position the collider at the camera's center
-        transform.position = mainCamera.transform.position;
-
-        // Set the size of the collider to match the camera's visible area
-        cameraBoundsCollider.size = new Vector2(cameraWidth, cameraHeight);
+        // Create boundaries based on camera's view
+        CreateBoundaryWalls(cameraPosition, cameraWidth, cameraHeight);
     }
 
-    // Optional: You can manually set the camera if you want to change it in runtime
-    public void SetCamera(Camera newCamera)
+    void CreateBoundaryWalls(Vector3 cameraPosition, float cameraWidth, float cameraHeight)
     {
-        mainCamera = newCamera;
-        CreateBoundsCollider();
+        // Create the top boundary
+        topWall = CreateBoundary(cameraPosition + new Vector3(0, cameraHeight / 2, 0), cameraWidth, 0.1f);
+
+        // Create the bottom boundary
+        bottomWall = CreateBoundary(cameraPosition + new Vector3(0, -cameraHeight / 2, 0), cameraWidth, 0.1f);
+
+        // Create the left boundary
+        leftWall = CreateBoundary(cameraPosition + new Vector3(-cameraWidth / 2, 0, 0), 0.1f, cameraHeight);
+
+        // Create the right boundary
+        rightWall = CreateBoundary(cameraPosition + new Vector3(cameraWidth / 2, 0, 0), 0.1f, cameraHeight);
+    }
+
+    BoxCollider2D CreateBoundary(Vector3 position, float width, float height)
+    {
+        GameObject boundary = new GameObject("BoundaryWall");
+        boundary.transform.position = position;
+
+        BoxCollider2D collider = boundary.AddComponent<BoxCollider2D>();
+        collider.size = new Vector2(width, height);
+
+        Rigidbody2D rb = boundary.AddComponent<Rigidbody2D>();
+        rb.isKinematic = true;  // Don't allow physics forces to move the boundary
+
+        return collider;
+    }
+
+    // Optionally, update the boundaries when the camera moves
+    void Update()
+    {
+        UpdateBounds();
+    }
+
+    void UpdateBounds()
+    {
+        Camera cam = Camera.main;
+        float cameraHeight = cam.orthographicSize * 2;
+        float cameraWidth = cameraHeight * cam.aspect;
+        Vector3 cameraPosition = cam.transform.position;
+
+        topWall.transform.position = cameraPosition + new Vector3(0, cameraHeight / 2, 0);
+        bottomWall.transform.position = cameraPosition + new Vector3(0, -cameraHeight / 2, 0);
+        leftWall.transform.position = cameraPosition + new Vector3(-cameraWidth / 2, 0, 0);
+        rightWall.transform.position = cameraPosition + new Vector3(cameraWidth / 2, 0, 0);
     }
 }
