@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class TerminalInterpreter : MonoBehaviour
 {
-    List<string> response = new List<string>();
+    private GameManager gameManager;
+    private List<string> response = new List<string>();
 
     public List<string> Interpret(string inputMessage) {
         response.Clear();
-        response.Add("Hello World");
-        response.Add("Your message: " + inputMessage);
+        response = gameManager.ManageTerminalInput(inputMessage);
         return response;
+    }
+
+    void Start()
+    {
+        gameManager = GetComponent<GameManager>();
     }
 }

@@ -18,8 +18,6 @@ public class TerminalManager : MonoBehaviour
     private void Start() {
         terminalInput = userInput.GetComponentsInChildren<TMP_InputField>()[0];
         terminalInput.ActivateInputField();
-
-        terminalInterpreter = GetComponent<TerminalInterpreter>();
     }
 
     private void OnGUI() {
@@ -39,7 +37,7 @@ public class TerminalManager : MonoBehaviour
         oldCommand.GetComponentsInChildren<TMP_Text>()[1].text = userInputMessage;
     }
 
-    private void AddTerminalResponse(List<string> responses) {
+    public void AddTerminalResponse(List<string> responses) {
         for (int i = 0; i < responses.Count; i++) {
             Vector2 terminalContainerSize = terminalContainer.GetComponent<RectTransform>().sizeDelta;
             terminalContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(terminalContainerSize.x, terminalContainerSize.y + 35.0f);
@@ -48,11 +46,33 @@ public class TerminalManager : MonoBehaviour
             response.transform.SetAsLastSibling();
             response.GetComponentsInChildren<TMP_Text>()[0].text = responses[i];
         }
+        sr.verticalNormalizedPosition = 0;
     }
 
-    private void ResetInputField() {
-        terminalInput.text = "";
+    public void ResetInputField() {
+        if (terminalInput != null) {
+            terminalInput.text = "";
+            terminalInput.ActivateInputField();
+        }
         userInput.transform.SetAsLastSibling();
-        terminalInput.ActivateInputField();
+    }
+
+    public void DisableInputField() {
+        userInput.SetActive(false);
+    }
+
+    public void ActivateInputField() {
+        userInput.SetActive(true);
+        ResetInputField();
+    }
+
+    public void ClearTerminal() {
+        foreach (Transform child in terminalContainer.transform)
+        {
+            if (child.gameObject.name != "UserInput")
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 }
