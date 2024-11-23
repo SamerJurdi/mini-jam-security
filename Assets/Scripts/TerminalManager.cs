@@ -13,16 +13,19 @@ public class TerminalManager : MonoBehaviour
     public ScrollRect sr;
 
     private TMP_InputField terminalInput;
+    private TerminalInterpreter terminalInterpreter;
 
     private void Start() {
         terminalInput = userInput.GetComponentsInChildren<TMP_InputField>()[0];
         terminalInput.ActivateInputField();
+
+        terminalInterpreter = GetComponent<TerminalInterpreter>();
     }
 
     private void OnGUI() {
         if (terminalInput.isFocused &&  terminalInput.text != "" && Input.GetKeyDown(KeyCode.Return)) {
             AddUserCommand(terminalInput.text);
-            AddTerminalResponse();
+            AddTerminalResponse(terminalInterpreter.Interpret(terminalInput.text));
             ResetInputField();
         }
     }
@@ -36,13 +39,15 @@ public class TerminalManager : MonoBehaviour
         oldCommand.GetComponentsInChildren<TMP_Text>()[1].text = userInputMessage;
     }
 
-    private void AddTerminalResponse() {
-        Vector2 terminalContainerSize = terminalContainer.GetComponent<RectTransform>().sizeDelta;
-        terminalContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(terminalContainerSize.x, terminalContainerSize.y + 35.0f);
+    private void AddTerminalResponse(List<string> responses) {
+        for (int i = 0; i < responses.Count; i++) {
+            Vector2 terminalContainerSize = terminalContainer.GetComponent<RectTransform>().sizeDelta;
+            terminalContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(terminalContainerSize.x, terminalContainerSize.y + 35.0f);
 
-        GameObject response = Instantiate(terminalResponse, terminalContainer.transform);
-        response.transform.SetAsLastSibling();
-        response.GetComponentsInChildren<TMP_Text>()[0].text = "This is the terminal response, thank you for using the terminal!";
+            GameObject response = Instantiate(terminalResponse, terminalContainer.transform);
+            response.transform.SetAsLastSibling();
+            response.GetComponentsInChildren<TMP_Text>()[0].text = responses[i];
+        }
     }
 
     private void ResetInputField() {

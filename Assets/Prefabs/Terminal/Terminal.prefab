@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 8633207851171497611}
   - component: {fileID: 4709668299018920896}
   - component: {fileID: 5419138431324633312}
+  - component: {fileID: 8992523953545579758}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -185,10 +186,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terminalResponse: {fileID: 145484435205252174, guid: c1b3562fb773cd646a8b2795ca80fe2a, type: 3}
   userCommand: {fileID: 2581363350596521355, guid: e887a1d7b8b61fd498c469af6962ae12, type: 3}
-  terminalInput: {fileID: 8029652590153347346}
   userInput: {fileID: 8883697178474552900}
-  sr: {fileID: 5277172686023210278}
   terminalContainer: {fileID: 7450134493787904664}
+  sr: {fileID: 5277172686023210278}
+--- !u!114 &8992523953545579758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6295030756158358385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee248b23fb3ff2942b6a4f47d805a888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7450134493787904664
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,17 +560,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5070632876317009374, guid: 80a7e8aa9ca94814e9420b668dd9de4f, type: 3}
   m_PrefabInstance: {fileID: 6904357359773100084}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8029652590153347346 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3512308586741209382, guid: 80a7e8aa9ca94814e9420b668dd9de4f, type: 3}
-  m_PrefabInstance: {fileID: 6904357359773100084}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8883697178474552900 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2636875122484229744, guid: 80a7e8aa9ca94814e9420b668dd9de4f, type: 3}
