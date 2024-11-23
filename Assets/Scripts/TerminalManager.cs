@@ -11,9 +11,9 @@ public class TerminalManager : MonoBehaviour
     public GameObject userInput;
     public GameObject terminalContainer;
     public ScrollRect sr;
+    public TerminalInterpreter terminalInterpreter;
 
     private TMP_InputField terminalInput;
-    private TerminalInterpreter terminalInterpreter;
 
     private void Start() {
         terminalInput = userInput.GetComponentsInChildren<TMP_InputField>()[0];
