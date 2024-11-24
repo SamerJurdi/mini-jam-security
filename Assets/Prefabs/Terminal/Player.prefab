@@ -589,6 +589,7 @@ MonoBehaviour:
   upAnimObject: {fileID: 3116628856209022745}
   downAnimObject: {fileID: 5995865941501726941}
   idleAnimObject: {fileID: 5477114320296059258}
+  walkSf: {fileID: 8300000, guid: d92973c5156101047880f15bc0ed479c, type: 3}
 --- !u!61 &4488464890610141348
 BoxCollider2D:
   m_ObjectHideFlags: 0
