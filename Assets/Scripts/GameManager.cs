@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum MiniGame
 {
@@ -20,6 +21,10 @@ public class GameManager : MonoBehaviour
     private List<GameObject> allObjectsToToggle = new List<GameObject>();
     private GameObject interactionTextObject;
     private CountdownTimer countdownTimer;
+
+    [Header("Audio Settings")]
+    public int numberOfInfectedFiles = 2;
+    private int infectedFilesTested = 0;
 
     private void Awake()
     {
@@ -49,7 +54,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void InitializeBossFight() {
-        // TODO: Switch to Bossfight scene
+        ToggleCustomGameObjects(false);
+        SceneManager.LoadScene("DenisScene");
     }
 
     public bool InitializeMiniGame()
@@ -74,10 +80,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void WonGame() {
+        infectedFilesTested++;
         StartCoroutine(CloseTerminal());
     }
 
     public void LostGame() {
+        infectedFilesTested++;
         StartCoroutine(CloseTerminal());
     }
 
@@ -94,6 +102,8 @@ public class GameManager : MonoBehaviour
 
         miniGameInProgress = false;
         ToggleCustomGameObjects(true);
+        if (infectedFilesTested == numberOfInfectedFiles)
+            InitializeBossFight();
     }
 
     private void OpenTerminal()
