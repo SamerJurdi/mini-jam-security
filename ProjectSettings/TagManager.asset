@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Wall
   - PlayerBullet
+  - File
   layers:
   - Default
   - TransparentFX
