@@ -8,6 +8,9 @@ TagManager:
   - Bullet
   - Wall
   - PlayerBullet
+  - File
+  - InteractionText
+  - GameState
   layers:
   - Default
   - TransparentFX

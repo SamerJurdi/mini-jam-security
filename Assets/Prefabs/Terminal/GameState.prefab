@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 249514240716001492}
   - component: {fileID: 6946680753139013608}
   - component: {fileID: 1698306302060117001}
+  - component: {fileID: 5800718913075286449}
   m_Layer: 0
   m_Name: GameState
-  m_TagString: Untagged
+  m_TagString: GameState
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20211cd254b54e942b823bedb9dcc7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terminal: {fileID: 0}
+  terminalManager: {fileID: 0}
   selectedMiniGame: 0
 --- !u!114 &6946680753139013608
 MonoBehaviour:
@@ -71,3 +74,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13a36a8f8acc9e140984d1c003fb6680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terminalManager: {fileID: 0}
+--- !u!114 &5800718913075286449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2927437230838261006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c144bcdae3afe4dbe9130a2269d3b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 0}
+  lostTimeText: {fileID: 0}
+  startTimeInSeconds: 80
