@@ -16,8 +16,7 @@ public class GameManager : MonoBehaviour
 
     public MiniGame selectedMiniGame;
     private MG_PatternController mg_PatternController;
-
-    // TODO: Create Countdown Timer
+    private bool miniGameInProgress = false;
 
     private void Awake()
     {
@@ -35,16 +34,18 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mg_PatternController = GetComponent<MG_PatternController>();
-        InitializeMiniGame();
     }
 
     public void InitializeMiniGame()
     {
-        selectedMiniGame = MiniGame.Pattern; // TODO: Randomize minigame selection
+        if (!miniGameInProgress) {
+            miniGameInProgress = true;
+            selectedMiniGame = MiniGame.Pattern; // TODO: Randomize minigame selection
 
-        if (selectedMiniGame == MiniGame.Pattern) {
-            mg_PatternController.InitializePatternGame();
-            OpenTerminal();
+            if (selectedMiniGame == MiniGame.Pattern) {
+                mg_PatternController.InitializePatternGame();
+                OpenTerminal();
+            }
         }
     }
 
@@ -62,6 +63,10 @@ public class GameManager : MonoBehaviour
     public void LostGame() {
         Debug.Log("File Lost!");
         StartCoroutine(CloseTerminal());
+    }
+
+    public void GameFailed() {
+        // TODO: Disable all UIs and enable death canvas (semi transparent panel with Play again button and main picture)
     }
 
     private IEnumerator CloseTerminal()
