@@ -11,6 +11,11 @@ public class MG_PatternController : MonoBehaviour
 
     public TerminalManager terminalManager;
 
+    [Header("Audio Settings")]
+    public SoundPool soundPool;
+    public AudioClip errorSound;
+    public AudioClip deleteSound;
+
     public class Pattern
     {
         public string prompt;
@@ -69,6 +74,7 @@ public class MG_PatternController : MonoBehaviour
         } else {
             countdownTimer.SubtractTime(5f);
             messages.Add("Error!");
+            soundPool.PlaySound(errorSound, Vector2.zero, 2f, false);
         }
 
         if (correctAnswers > 3) {
@@ -88,6 +94,7 @@ public class MG_PatternController : MonoBehaviour
             } else {
                 EndGameSuccessfully(false);
                 messages.Add("File Lost!");
+                soundPool.PlaySound(deleteSound, Vector2.zero, 0.8f, false);
             }
         }
 
