@@ -417,6 +417,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   decelerationTime: 0.07
+  leftAnimObject: {fileID: 7440160084454640817}
+  upAnimObject: {fileID: 4448304834566778823}
+  downAnimObject: {fileID: 6970123439733692674}
+  idleAnimObject: {fileID: 4487162988561785559}
 --- !u!61 &4584846151522852214
 BoxCollider2D:
   m_ObjectHideFlags: 0

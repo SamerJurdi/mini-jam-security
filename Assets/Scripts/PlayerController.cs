@@ -1,40 +1,108 @@
 using UnityEngine;
 
+public enum DIRECTION
+{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+    IDLE
+}
+
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Movement speed
-    public float decelerationTime = 0.1f; // Controls the deceleration speed (higher is slower stop)
-    private Rigidbody2D rb; // Reference to the Rigidbody2D component
-    private Vector2 targetMovement; // The target movement direction
+    public float moveSpeed = 5f;
+    public float decelerationTime = 0.1f;
+    private Rigidbody2D rb;
+    private Vector2 targetMovement;
+
+    public GameObject leftAnimObject;
+    public GameObject upAnimObject;
+    public GameObject downAnimObject;
+    public GameObject idleAnimObject;
+    private GameObject newAnimation;
+    private DIRECTION selectedDirection;
+    private DIRECTION newDirection;
 
     void Start()
     {
-        // Get the Rigidbody2D component
         rb = GetComponent<Rigidbody2D>();
+        selectedDirection = DIRECTION.IDLE;
+        newDirection = DIRECTION.IDLE;
     }
 
     void Update()
     {
-        // Get input from the arrow keys or WASD keys for horizontal and vertical movement
-        float moveX = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right Arrow
-        float moveY = Input.GetAxisRaw("Vertical");   // W/S or Up/Down Arrow
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
 
-        // Store the target movement vector and normalize it
-        targetMovement = new Vector2(moveX, moveY).normalized; // Normalize to ensure consistent speed even when moving diagonally
+        targetMovement = new Vector2(moveX, moveY).normalized;
+
+        // Handle player direction change and rotation
+        UpdatePlayerAnimation(moveX, moveY);
     }
 
     void FixedUpdate()
     {
-        // Apply movement instantly for acceleration
         if (targetMovement != Vector2.zero)
         {
-            // Move the player directly to the target movement direction (instant acceleration)
             rb.velocity = targetMovement * moveSpeed;
         }
         else
         {
-            // Apply deceleration when stopping (smooth deceleration)
             rb.velocity = Vector2.SmoothDamp(rb.velocity, Vector2.zero, ref targetMovement, decelerationTime);
         }
+    }
+
+    void UpdatePlayerAnimation(float moveX, float moveY) {
+        if (moveX > 0)
+        {
+            newAnimation = leftAnimObject;
+            newDirection = DIRECTION.RIGHT;
+        }
+        else if (moveX < 0)
+        {
+            newAnimation = leftAnimObject;
+            newDirection = DIRECTION.LEFT;
+        }
+        else if (moveY > 0)
+        {
+            newAnimation = upAnimObject;
+            newDirection = DIRECTION.UP;
+        }
+        else if (moveY < 0)
+        {
+            newAnimation = downAnimObject;
+            newDirection = DIRECTION.DOWN;
+        }
+        else
+        {
+            newAnimation = idleAnimObject;
+            newDirection = DIRECTION.IDLE;
+        }
+
+        if (newDirection != selectedDirection) {
+            ActivateAnimation(newAnimation);
+            selectedDirection = newDirection;
+        }
+    }
+
+    void ActivateAnimation(GameObject selectedAnimObject) {
+        if (newDirection == DIRECTION.RIGHT && selectedDirection != DIRECTION.RIGHT) {
+            // Rotate the player to face right
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            transform.position = new Vector2(transform.position.x - 1.8999f, transform.position.y);
+        } else if (newDirection != DIRECTION.RIGHT && selectedDirection == DIRECTION.RIGHT) {
+            // Rotate the player to face left
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.position = new Vector2(transform.position.x + 1.8999f, transform.position.y);
+        }
+
+        leftAnimObject.SetActive(false);
+        upAnimObject.SetActive(false);
+        downAnimObject.SetActive(false);
+        idleAnimObject.SetActive(false);
+
+        selectedAnimObject.SetActive(true);
     }
 }
