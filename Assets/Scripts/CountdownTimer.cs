@@ -24,11 +24,6 @@ public class CountdownTimer : MonoBehaviour
     void Update()
     {
         if (!isPaused) {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SubtractTime(5f);
-            }
-
             if (remainingTime > 0)
             {
                 remainingTime -= Time.deltaTime;

@@ -5,9 +5,10 @@ using TMPro;
 
 public class RandomIntervalCaller : MonoBehaviour
 {
+    public TextMeshProUGUI displayText;
+    public float textHeight = 1f;
     public float minInterval = 3f;
     public float maxInterval = 10f;
-    public TextMeshProUGUI displayText;
 
     [Header("Animation Settings")]
     public Animator animator;
@@ -20,20 +21,40 @@ public class RandomIntervalCaller : MonoBehaviour
     public AudioClip[] glitchSounds;
     private AudioClip glitchSound;
 
+    private GameObject gameStateObject;
+    private GameManager gameManager;
+    private bool isPlayerNearby = false;
 
     void Start()
     {
         animGlitchFile = Animator.StringToHash(glitchAnimation.name);
         StartCoroutine(CallGlitchFileAtRandomIntervals());
         displayText.gameObject.SetActive(false);
+
+        gameStateObject = GameObject.FindWithTag("GameState");
+
+        if (gameStateObject != null)
+        {
+            gameManager = gameStateObject.GetComponent<GameManager>();
+        }
+    }
+
+    void Update() {
+        
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.E) && gameManager.InitializeMiniGame())
+        {
+            displayText.gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
+            isPlayerNearby = true;
             displayText.gameObject.SetActive(true);
-            Vector3 textPosition = transform.position + new Vector3(0, 1.5f, 0);
+            Vector3 textPosition = transform.position + new Vector3(0, textHeight, 0);
             displayText.transform.position = Camera.main.WorldToScreenPoint(textPosition);
         }
     }
@@ -42,7 +63,8 @@ public class RandomIntervalCaller : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Vector3 textPosition = transform.position + new Vector3(0, 1.5f, 0);
+            isPlayerNearby = true;
+            Vector3 textPosition = transform.position + new Vector3(0, textHeight, 0);
             displayText.transform.position = Camera.main.WorldToScreenPoint(textPosition);
         }
     }
@@ -51,6 +73,7 @@ public class RandomIntervalCaller : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            isPlayerNearby = false;
             displayText.gameObject.SetActive(false);
         }
     }

@@ -7,7 +7,10 @@ using System.Linq;
 public class MG_PatternController : MonoBehaviour
 {
     private GameManager gameManager;
+    private CountdownTimer countdownTimer;
+
     public TerminalManager terminalManager;
+
     public class Pattern
     {
         public string prompt;
@@ -40,6 +43,7 @@ public class MG_PatternController : MonoBehaviour
     void Start()
     {
         gameManager = GetComponent<GameManager>();
+        countdownTimer = GetComponent<CountdownTimer>();
         ResetPatternGroup();
     }
 
@@ -63,12 +67,13 @@ public class MG_PatternController : MonoBehaviour
             messages.Add("Correct!");
             correctAnswers++;
         } else {
-            // TODO: Subtract Score Here
+            countdownTimer.SubtractTime(5f);
             messages.Add("Error!");
         }
 
         if (correctAnswers > 3) {
             EndGameSuccessfully(true);
+            messages.Add("File Recovered!");
             return messages;
         }
 
@@ -79,7 +84,11 @@ public class MG_PatternController : MonoBehaviour
         } else {
             if (isCorrect) {
                 EndGameSuccessfully(true);
-            } else EndGameSuccessfully(false);
+                messages.Add("File Recovered!");
+            } else {
+                EndGameSuccessfully(false);
+                messages.Add("File Lost!");
+            }
         }
 
         return messages;

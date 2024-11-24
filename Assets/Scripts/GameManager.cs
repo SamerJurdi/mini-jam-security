@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public MiniGame selectedMiniGame;
     private MG_PatternController mg_PatternController;
     private bool miniGameInProgress = false;
+    private List<GameObject> allObjectsToToggle = new List<GameObject>();
+    private GameObject interactionTextObject;
+    private CountdownTimer countdownTimer;
 
     private void Awake()
     {
@@ -34,11 +37,25 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mg_PatternController = GetComponent<MG_PatternController>();
+        countdownTimer = GetComponent<CountdownTimer>();
+
+        GameObject playerObject = GameObject.FindWithTag("Player");
+        if (playerObject != null)
+            allObjectsToToggle.Add(playerObject);
+
+        interactionTextObject = GameObject.FindWithTag("InteractionText");
+        if (interactionTextObject != null)
+            allObjectsToToggle.Add(interactionTextObject);
     }
 
-    public void InitializeMiniGame()
+    public void InitializeBossFight() {
+        // TODO: Switch to Bossfight scene
+    }
+
+    public bool InitializeMiniGame()
     {
         if (!miniGameInProgress) {
+            ToggleCustomGameObjects(false);
             miniGameInProgress = true;
             selectedMiniGame = MiniGame.Pattern; // TODO: Randomize minigame selection
 
@@ -46,7 +63,8 @@ public class GameManager : MonoBehaviour
                 mg_PatternController.InitializePatternGame();
                 OpenTerminal();
             }
-        }
+            return true;
+        } else return false;
     }
 
     public List<string> ManageTerminalInput(string inputMessage) {
@@ -56,12 +74,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void WonGame() {
-        Debug.Log("File Recovered!");
         StartCoroutine(CloseTerminal());
     }
 
     public void LostGame() {
-        Debug.Log("File Lost!");
         StartCoroutine(CloseTerminal());
     }
 
@@ -75,11 +91,24 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         terminalManager.ClearTerminal();
         terminal.SetActive(false);
+
+        miniGameInProgress = false;
+        ToggleCustomGameObjects(true);
     }
 
     private void OpenTerminal()
     {
         terminal.SetActive(true);
         terminalManager.ActivateInputField();
+    }
+
+    private void ToggleCustomGameObjects(bool isActive) {
+        foreach (GameObject obj in allObjectsToToggle)
+        {
+            if (obj != null)
+                obj.SetActive(isActive);
+        }
+        if (interactionTextObject != null)
+            interactionTextObject.SetActive(false);
     }
 }

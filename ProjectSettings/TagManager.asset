@@ -9,6 +9,8 @@ TagManager:
   - Wall
   - PlayerBullet
   - File
+  - InteractionText
+  - GameState
   layers:
   - Default
   - TransparentFX
