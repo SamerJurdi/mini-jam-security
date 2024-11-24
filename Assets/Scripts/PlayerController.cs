@@ -23,12 +23,20 @@ public class PlayerController : MonoBehaviour
     private GameObject newAnimation;
     private DIRECTION selectedDirection;
     private DIRECTION newDirection;
+    private SoundPool soundPool;
+    public AudioClip walkSf;
+
+    private bool isWalking;
+    private bool isPlayingWalkSound;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         selectedDirection = DIRECTION.IDLE;
         newDirection = DIRECTION.IDLE;
+        soundPool = GameObject.Find("AudioPool").GetComponent<SoundPool>();
+        isWalking = false;
+        isPlayingWalkSound = false;
     }
 
     void Update()
@@ -38,13 +46,25 @@ public class PlayerController : MonoBehaviour
 
         targetMovement = new Vector2(moveX, moveY).normalized;
 
-        // Handle player direction change and rotation
         UpdatePlayerAnimation(moveX, moveY);
+
+        isWalking = targetMovement != Vector2.zero;
+
+        if (isWalking && !isPlayingWalkSound)
+        {
+            soundPool.PlaySound(walkSf, Vector2.zero, 0.1f, true, 1.2f, false);
+            isPlayingWalkSound = true;
+        }
+        else if (!isWalking && isPlayingWalkSound)
+        {
+            soundPool.StopSound(walkSf);
+            isPlayingWalkSound = false;
+        }
     }
 
     void FixedUpdate()
     {
-        if (targetMovement != Vector2.zero)
+        if (isWalking)
         {
             rb.velocity = targetMovement * moveSpeed;
         }
@@ -54,7 +74,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void UpdatePlayerAnimation(float moveX, float moveY) {
+    void UpdatePlayerAnimation(float moveX, float moveY)
+    {
         if (moveX > 0)
         {
             newAnimation = leftAnimObject;
@@ -81,19 +102,22 @@ public class PlayerController : MonoBehaviour
             newDirection = DIRECTION.IDLE;
         }
 
-        if (newDirection != selectedDirection) {
+        if (newDirection != selectedDirection)
+        {
             ActivateAnimation(newAnimation);
             selectedDirection = newDirection;
         }
     }
 
-    void ActivateAnimation(GameObject selectedAnimObject) {
-        if (newDirection == DIRECTION.RIGHT && selectedDirection != DIRECTION.RIGHT) {
-            // Rotate the player to face right
+    void ActivateAnimation(GameObject selectedAnimObject)
+    {
+        if (newDirection == DIRECTION.RIGHT && selectedDirection != DIRECTION.RIGHT)
+        {
             transform.rotation = Quaternion.Euler(0, 180, 0);
             transform.position = new Vector2(transform.position.x - 1.8999f, transform.position.y);
-        } else if (newDirection != DIRECTION.RIGHT && selectedDirection == DIRECTION.RIGHT) {
-            // Rotate the player to face left
+        }
+        else if (newDirection != DIRECTION.RIGHT && selectedDirection == DIRECTION.RIGHT)
+        {
             transform.rotation = Quaternion.Euler(0, 0, 0);
             transform.position = new Vector2(transform.position.x + 1.8999f, transform.position.y);
         }
