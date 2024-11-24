@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 3811986066019049153}
   - component: {fileID: 4520757646220306213}
   - component: {fileID: 1250760153730869383}
+  - component: {fileID: 2766608067555372647}
+  - component: {fileID: 1269143180755150755}
   m_Layer: 0
-  m_Name: File
+  m_Name: Infected File
   m_TagString: File
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,6 +80,64 @@ MonoBehaviour:
   moveSpeed: 10
   wanderDuration: 3
   movementRadius: 3
+--- !u!114 &2766608067555372647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7863644412685308416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14e950a2e827684d9ad3010d8961f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minInterval: 1
+  maxInterval: 5
+  displayText: {fileID: 0}
+  animator: {fileID: 438695338555930834}
+  normalAnimation: {fileID: 7400000, guid: 8dc93ab683ec44547904cf25395c51b3, type: 2}
+  glitchAnimation: {fileID: 7400000, guid: 5fbfec5a6d60ffc449585f66a6184178, type: 2}
+  soundPool: {fileID: 0}
+  glitchSounds:
+  - {fileID: 8300000, guid: 0be80f78df551fa4094ccc0c7980a771, type: 3}
+  - {fileID: 8300000, guid: a932de1371165b1419f03be5471041da, type: 3}
+  - {fileID: 8300000, guid: 7c295a14733b7ff40b4e82d0ec05534f, type: 3}
+--- !u!58 &1269143180755150755
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7863644412685308416}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.4170203
 --- !u!1 &9195115242199888577
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +282,7 @@ Animator:
   m_GameObject: {fileID: 9195115242199888577}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ab4a6450dfa1ddb449142c9aa48ad299, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2e4af652fb6ce0d48b5626a5e556d0b8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
