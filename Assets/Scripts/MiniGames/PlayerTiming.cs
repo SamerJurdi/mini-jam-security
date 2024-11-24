@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class PlayerTiming : MonoBehaviour
 {
-    private SpriteRenderer sp;
+    public SpriteRenderer sp;
     public float back;
     private bool damaged = false;
     private float bk = 0;
+    public GameObject[] healthPoints;
+    private int hp = 3;
   
     // Start is called before the first frame update
     void Start()
     {
-        sp = GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
@@ -40,8 +42,11 @@ public class PlayerTiming : MonoBehaviour
     }
     public void TakeDamage()
     {
+        hp--;
         sp.color = Color.red;
         damaged = true;
+        healthPoints[hp].SetActive(false);
+        
     }
     
 }
