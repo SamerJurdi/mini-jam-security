@@ -49,7 +49,7 @@ public class MG_Timing : MonoBehaviour
         if (shootTm <= 0)
         {
             Shoot(projectiles[UnityEngine.Random.Range(0, projectiles.Length)]);
-            shootTm = UnityEngine.Random.Range(0.3f, shootRate);
+            shootTm = UnityEngine.Random.Range(0.5f, shootRate);
         }
     }
 
