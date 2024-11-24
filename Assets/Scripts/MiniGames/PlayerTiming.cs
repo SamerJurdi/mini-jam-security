@@ -9,7 +9,7 @@ public class PlayerTiming : MonoBehaviour
     public float back;
     private bool damaged = false;
     private float bk = 0;
-
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -43,4 +43,5 @@ public class PlayerTiming : MonoBehaviour
         sp.color = Color.red;
         damaged = true;
     }
+    
 }

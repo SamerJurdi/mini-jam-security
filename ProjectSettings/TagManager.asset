@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Slash
   - Bullet
+  - Wall
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
@@ -13,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Bullet
   - 
   - 
   - 
