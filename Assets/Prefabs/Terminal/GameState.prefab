@@ -75,6 +75,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terminalManager: {fileID: 0}
+  soundPool: {fileID: 0}
+  errorSound: {fileID: 8300000, guid: 3d5eb7c0e466e66468d85ddba44426d9, type: 3}
+  deleteSound: {fileID: 8300000, guid: 29b5d0354b90f774a8a412302b3e7451, type: 3}
 --- !u!114 &5800718913075286449
 MonoBehaviour:
   m_ObjectHideFlags: 0

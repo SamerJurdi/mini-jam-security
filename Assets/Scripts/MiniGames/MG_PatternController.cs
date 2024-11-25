@@ -11,6 +11,11 @@ public class MG_PatternController : MonoBehaviour
 
     public TerminalManager terminalManager;
 
+    [Header("Audio Settings")]
+    public SoundPool soundPool;
+    public AudioClip errorSound;
+    public AudioClip deleteSound;
+
     public class Pattern
     {
         public string prompt;
@@ -54,7 +59,11 @@ public class MG_PatternController : MonoBehaviour
         GetRandomPatternGroup();
         messages.Clear();
         messages.Add(selectedPatternGroup[stage].prompt);
-        messages.Add(string.Join(" or ", selectedPatternGroup[stage].answers));
+        int randomIndex = UnityEngine.Random.Range(0, 2);
+        List<string> customList = new List<string>();
+        customList.Add(selectedPatternGroup[stage].answers[randomIndex]);
+        customList.Add(selectedPatternGroup[stage].answers[1 - randomIndex]);
+        messages.Add(string.Join(" or ", customList));
         terminalManager.AddTerminalResponse(messages);
         terminalManager.ResetInputField();
     }
@@ -69,6 +78,7 @@ public class MG_PatternController : MonoBehaviour
         } else {
             countdownTimer.SubtractTime(5f);
             messages.Add("Error!");
+            soundPool.PlaySound(errorSound, Vector2.zero, 2f, false);
         }
 
         if (correctAnswers > 3) {
@@ -88,6 +98,7 @@ public class MG_PatternController : MonoBehaviour
             } else {
                 EndGameSuccessfully(false);
                 messages.Add("File Lost!");
+                soundPool.PlaySound(deleteSound, Vector2.zero, 0.8f, false);
             }
         }
 
