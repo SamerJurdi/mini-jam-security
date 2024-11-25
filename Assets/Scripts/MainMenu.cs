@@ -8,8 +8,6 @@ public class MainMenu : MonoBehaviour
 {
     public string sceneName;
 
-    private CountdownTimer countdownTimer;
-
     public void OnStartButtonClicked()
     {
         SceneManager.LoadScene(sceneName);
@@ -18,10 +16,7 @@ public class MainMenu : MonoBehaviour
     void Start() {
         GameObject gameStateObject = GameObject.FindWithTag("GameState");
         if (gameStateObject != null) {
-            GameManager gameManager = gameStateObject.GetComponent<GameManager>();
-            gameManager.ResetState();
-            countdownTimer = gameStateObject.GetComponent<CountdownTimer>();
-            countdownTimer.PauseTimer();
+            Destroy(gameStateObject);
         }
     }
 }

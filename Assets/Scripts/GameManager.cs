@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     private bool miniGameInProgress = false;
     private List<GameObject> allObjectsToToggle = new List<GameObject>();
     private GameObject interactionUI;
+    private Canvas interactionCanvas;
     private CountdownTimer countdownTimer;
 
     private int numberOfInfectedFiles = 2;
@@ -49,16 +50,7 @@ public class GameManager : MonoBehaviour
 
         interactionUI = GameObject.FindWithTag("InteractionUI");
         if (interactionUI != null)
-            allObjectsToToggle.Add(interactionUI);
-    }
-
-    public void ResetState() {
-        Destroy(gameObject);
-        miniGameInProgress = false;
-        numberOfInfectedFiles = 2;
-        infectedFilesTested = 0;
-        countdownTimer.ResetTimer();
-        ToggleCustomGameObjects(true);
+            interactionCanvas = interactionUI.GetComponent<Canvas>();
     }
 
     public void InitializeBossFight() {
@@ -127,6 +119,6 @@ public class GameManager : MonoBehaviour
                 obj.SetActive(isActive);
         }
         if (interactionUI != null)
-            interactionUI.SetActive(false);
+            interactionCanvas.enabled = false;
     }
 }
