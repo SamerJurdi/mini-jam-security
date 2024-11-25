@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerTiming : MonoBehaviour
 {
@@ -36,11 +37,21 @@ public class PlayerTiming : MonoBehaviour
         }
         if(hp <= 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 3f);
             endScreen.SetActive(true);
+            StartCoroutine(delay());
+            
         }
     }
-
+    IEnumerator delay()
+    {
+        yield return new WaitForSeconds(0.3f);
+        GameObject gameStateObject = GameObject.FindWithTag("GameState"); // Is how you get the game state
+        GameManager gameManager = gameStateObject.GetComponent<GameManager>(); // Is how you access the game state script
+        gameManager.ResetState(); // When you end the game and go to main menu
+        SceneManager.LoadScene("MainMenu");
+        
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Bullet")
