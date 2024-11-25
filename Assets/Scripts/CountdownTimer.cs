@@ -85,6 +85,13 @@ public class CountdownTimer : MonoBehaviour
         isPaused = false;
     }
 
+    public void ResetTimer() {
+        remainingTime = startTimeInSeconds;
+        lostTimeDisplayDuration = 1f;
+        isDisplayingLostTime = false;
+        isPaused = false;
+    }
+
     private void ShowLostTime(float secondsLost)
     {
         lostTimeText.gameObject.SetActive(true);

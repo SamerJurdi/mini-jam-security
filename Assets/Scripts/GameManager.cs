@@ -22,8 +22,7 @@ public class GameManager : MonoBehaviour
     private GameObject interactionTextObject;
     private CountdownTimer countdownTimer;
 
-    [Header("Audio Settings")]
-    public int numberOfInfectedFiles = 2;
+    private int numberOfInfectedFiles = 2;
     private int infectedFilesTested = 0;
 
     private void Awake()
@@ -51,6 +50,13 @@ public class GameManager : MonoBehaviour
         interactionTextObject = GameObject.FindWithTag("InteractionText");
         if (interactionTextObject != null)
             allObjectsToToggle.Add(interactionTextObject);
+    }
+
+    public void ResetState() {
+        miniGameInProgress = false;
+        numberOfInfectedFiles = 2;
+        infectedFilesTested = 0;
+        countdownTimer.ResetTimer();
     }
 
     public void InitializeBossFight() {
