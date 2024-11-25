@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MG_Timing : MonoBehaviour
@@ -36,6 +37,7 @@ public class MG_Timing : MonoBehaviour
     public AudioClip BulletSHotSound;
     public AudioClip woosh;
     public AudioClip BossExplode;
+    
 
 
     void Start()
@@ -96,7 +98,8 @@ public class MG_Timing : MonoBehaviour
             Boss.SetActive(false);
             Explosion.SetActive(true);
             soundPool.PlaySound(BossExplode, Vector2.zero, 0.6f, false, 0.2f);
-            
+            StartCoroutine(delay());
+
         }
         chargeBar.value = recharge;
 
@@ -108,10 +111,19 @@ public class MG_Timing : MonoBehaviour
             shootTm = UnityEngine.Random.Range(0.5f, shootRate);
             typeOfShot = UnityEngine.Random.Range(0, projectiles.Length);
             ProjectilesCs[typeOfShot].SetActive(false);
+            
         }
     }
-
-    void Shoot(GameObject bulletType)
+    
+    IEnumerator delay()
+{
+    yield return new WaitForSeconds(2f);
+    GameObject gameStateObject = GameObject.FindWithTag("GameState"); // Is how you get the game state
+    GameManager gameManager = gameStateObject.GetComponent<GameManager>(); // Is how you access the game state script
+    gameManager.ResetState(); // When you end the game and go to main menu
+        SceneManager.LoadScene("MainMenu");
+    }
+void Shoot(GameObject bulletType)
     {
         soundPool.PlaySound(BulletSHotSound, Vector2.zero, 0.2f, false, 0.2f);
         Instantiate(bulletType, spawnPoint.position, Quaternion.identity);
