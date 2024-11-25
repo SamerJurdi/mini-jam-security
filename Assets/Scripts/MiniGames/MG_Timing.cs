@@ -29,6 +29,14 @@ public class MG_Timing : MonoBehaviour
     public GameObject[] playerStates;
     private bool mouseHeld;
     private bool gamewon = false;
+    public GameObject Boss;
+    public GameObject Explosion;
+    public SoundPool soundPool;
+    public AudioClip light;
+    public AudioClip BulletSHotSound;
+    public AudioClip woosh;
+    public AudioClip BossExplode;
+
 
     void Start()
     {
@@ -37,6 +45,7 @@ public class MG_Timing : MonoBehaviour
         chargeBar.maxValue = rechargeTime;
         typeOfShot = UnityEngine.Random.Range(0, projectiles.Length);
         BossHealthBar.maxValue = BossHealth;
+        soundPool = GameObject.Find("AudioPool").GetComponent<SoundPool>();
     }
 
     void Update()
@@ -47,7 +56,7 @@ public class MG_Timing : MonoBehaviour
         {
             playerStates[0].SetActive(false);
             playerStates[1].SetActive(true);
-           
+            soundPool.PlaySound(light, Vector2.zero, 0.1f, false, 1.2f, false);
             mouseHeld = true;
         }
         if (mouseHeld)
@@ -58,6 +67,7 @@ public class MG_Timing : MonoBehaviour
         {
             playerStates[1].SetActive(false);
             playerStates[0].SetActive(true);
+            soundPool.StopSound(light);
             mouseHeld = false;
         }
 
@@ -68,6 +78,7 @@ public class MG_Timing : MonoBehaviour
             hitboxUp.SetActive(false);
             playerShield.SetBool("up", false);
             recharge = 0f;
+            soundPool.PlaySound(woosh, Vector2.zero, 0.3f, false, 0.2f);
         }
 
         if (Input.GetKeyDown(KeyCode.W) && recharge >= rechargeTime)
@@ -77,15 +88,20 @@ public class MG_Timing : MonoBehaviour
             up = true;
             playerShield.SetBool("up", true);
             recharge = 0f;
+            soundPool.PlaySound(woosh, Vector2.zero, 0.3f, false, 0.2f);
         }
-        if(BossHealth <= 0f)
+        if(BossHealth <= 0f && !gamewon)
         {
-            gamewon = true;    
+            gamewon = true; 
+            Boss.SetActive(false);
+            Explosion.SetActive(true);
+            soundPool.PlaySound(BossExplode, Vector2.zero, 0.6f, false, 0.2f);
+            
         }
         chargeBar.value = recharge;
 
         shootTm -= Time.deltaTime;
-        if (shootTm <= 0)
+        if (shootTm <= 0 && ! gamewon)
         {
             ProjectilesCs[typeOfShot].SetActive(true);
             Shoot(projectiles[typeOfShot]);
@@ -97,7 +113,9 @@ public class MG_Timing : MonoBehaviour
 
     void Shoot(GameObject bulletType)
     {
+        soundPool.PlaySound(BulletSHotSound, Vector2.zero, 0.2f, false, 0.2f);
         Instantiate(bulletType, spawnPoint.position, Quaternion.identity);
         animator.SetTrigger("shoot");
     }
+    
 }

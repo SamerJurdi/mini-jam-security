@@ -11,11 +11,14 @@ public class PlayerTiming : MonoBehaviour
     private float bk = 0;
     public GameObject[] healthPoints;
     private int hp = 3;
-  
+    public SoundPool soundPool;
+    public AudioClip hit;
+    public GameObject endScreen;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        soundPool = GameObject.Find("AudioPool").GetComponent<SoundPool>();
     }
 
     // Update is called once per frame
@@ -30,6 +33,11 @@ public class PlayerTiming : MonoBehaviour
                 bk = 0;
                 damaged = false;
             }
+        }
+        if(hp <= 0)
+        {
+            Destroy(gameObject);
+            endScreen.SetActive(true);
         }
     }
 
@@ -46,7 +54,8 @@ public class PlayerTiming : MonoBehaviour
         sp.color = Color.red;
         damaged = true;
         healthPoints[hp].SetActive(false);
-        
+        soundPool.PlaySound(hit, Vector2.zero, 1f, false, 0.2f);
+
     }
     
 }
