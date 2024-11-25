@@ -55,7 +55,7 @@ public class AssistantScript : MonoBehaviour
 
         if (currentEmotionIndex >= emotionSequence.Length && currentDialogueIndex >= Dialogues.Length)
         {
-            stop = true; 
+            stop = true;
             DeactivateAll(AssistantEmotions);
             DeactivateAll(Dialogues);
         }
@@ -77,7 +77,7 @@ public class AssistantScript : MonoBehaviour
 
         if (currentEmotionIndex >= emotionSequence.Length)
         {
-            stop = true; 
+            stop = true;
         }
     }
 
@@ -92,7 +92,7 @@ public class AssistantScript : MonoBehaviour
 
         if (currentDialogueIndex >= Dialogues.Length)
         {
-            stop = true; 
+            stop = true;
         }
     }
 

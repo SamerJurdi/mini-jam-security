@@ -13,9 +13,6 @@ public class MainMenu : MonoBehaviour
     public void OnStartButtonClicked()
     {
         SceneManager.LoadScene(sceneName);
-        if (countdownTimer != null) {
-            countdownTimer.ResumeTimer();
-        }
     }
 
     void Start() {

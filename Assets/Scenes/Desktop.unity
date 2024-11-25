@@ -221,6 +221,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Infected File (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7863644412685308416, guid: e394bc0dbf629b54fbc785f3d7cc2ff9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -345,6 +349,10 @@ PrefabInstance:
     - target: {fileID: 7863644412685308416, guid: 709d5f58ed0ed4c45822fc0e39ba1832, type: 3}
       propertyPath: m_Name
       value: File (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863644412685308416, guid: 709d5f58ed0ed4c45822fc0e39ba1832, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -583,6 +591,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8291929569367653771, guid: c61c5ad202d06844e8624463e817d0a6, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 003f6d4779a02694888ed79f3861b9fc, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -639,6 +651,10 @@ PrefabInstance:
     - target: {fileID: 7863644412685308416, guid: 709d5f58ed0ed4c45822fc0e39ba1832, type: 3}
       propertyPath: m_Name
       value: File (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863644412685308416, guid: 709d5f58ed0ed4c45822fc0e39ba1832, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -730,6 +746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Infected File
       objectReference: {fileID: 0}
+    - target: {fileID: 7863644412685308416, guid: e394bc0dbf629b54fbc785f3d7cc2ff9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -796,6 +816,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8ea021d3000ea64ca89f0672094f2b7, type: 3}
+--- !u!82 &1276012802 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8291929569367653771, guid: c61c5ad202d06844e8624463e817d0a6, type: 3}
+  m_PrefabInstance: {fileID: 686281136}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1530585370 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6946680753139013608, guid: 7f5416260c79bdd40a6077a44304eeb1, type: 3}
@@ -911,6 +936,10 @@ PrefabInstance:
     - target: {fileID: 1497398358094635159, guid: 76614b782b82f8b4d80016c9323a80a8, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497398358094635159, guid: 76614b782b82f8b4d80016c9323a80a8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2005374650648031662, guid: 76614b782b82f8b4d80016c9323a80a8, type: 3}
       propertyPath: m_Pivot.x
@@ -1119,13 +1148,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2493403992948617012, guid: 35b033b62c4dac048aef23cbc53fcf7c, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1276012802}
+    - target: {fileID: 2493403992948617012, guid: 35b033b62c4dac048aef23cbc53fcf7c, type: 3}
+      propertyPath: intenseSong
+      value: 
+      objectReference: {fileID: 8300000, guid: cc2c458ea4fda804e9d0f02970917208, type: 3}
+    - target: {fileID: 2493403992948617012, guid: 35b033b62c4dac048aef23cbc53fcf7c, type: 3}
+      propertyPath: interactionUI
+      value: 
+      objectReference: {fileID: 599804445}
+    - target: {fileID: 2493403992948617012, guid: 35b033b62c4dac048aef23cbc53fcf7c, type: 3}
+      propertyPath: emotionChangeTime
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5898661324056864042, guid: 35b033b62c4dac048aef23cbc53fcf7c, type: 3}
       propertyPath: m_Name
       value: Helper
       objectReference: {fileID: 0}
     - target: {fileID: 5898661324056864042, guid: 35b033b62c4dac048aef23cbc53fcf7c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9068562663981453118, guid: 35b033b62c4dac048aef23cbc53fcf7c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1350,6 +1395,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: File
       objectReference: {fileID: 0}
+    - target: {fileID: 7863644412685308416, guid: 709d5f58ed0ed4c45822fc0e39ba1832, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1446,6 +1495,10 @@ PrefabInstance:
     - target: {fileID: 8178037535321293628, guid: 46144e568383fe84f8e523789814eabf, type: 3}
       propertyPath: m_Name
       value: Interaction UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178037535321293628, guid: 46144e568383fe84f8e523789814eabf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
