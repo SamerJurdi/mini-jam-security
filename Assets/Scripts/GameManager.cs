@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
         numberOfInfectedFiles = 2;
         infectedFilesTested = 0;
         countdownTimer.ResetTimer();
+        ToggleCustomGameObjects(true);
     }
 
     public void InitializeBossFight() {

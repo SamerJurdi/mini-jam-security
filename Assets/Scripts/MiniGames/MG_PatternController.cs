@@ -13,6 +13,8 @@ public class MG_PatternController : MonoBehaviour
 
     [Header("Audio Settings")]
     public SoundPool soundPool;
+    public AudioClip correctSound;
+    public AudioClip recoverSound;
     public AudioClip errorSound;
     public AudioClip deleteSound;
 
@@ -34,8 +36,14 @@ public class MG_PatternController : MonoBehaviour
         new List<Pattern>
         {
             new Pattern { prompt = "Find the next value: Fox, ..", answers = new string[] { "Box", "Barn" }, correct = "Box" },
-            new Pattern { prompt = "Find the next value: Fox, Box, ..", answers = new string[] { "ox", "cow" }, correct = "ox" },
-            new Pattern { prompt = "Find the next value: Fox, Box, ox, ..", answers = new string[] { "paradox", "mystery" }, correct = "paradox" }
+            new Pattern { prompt = "Find the next value: Fox, Box, ..", answers = new string[] { "Ox", "Cow" }, correct = "Ox" },
+            new Pattern { prompt = "Find the next value: Fox, Box, Ox, ..", answers = new string[] { "Paradox", "Mystery" }, correct = "Paradox" }
+        },
+        new List<Pattern>
+        {
+            new Pattern { prompt = "Find the next value: Ring, ..", answers = new string[] { "Brush", "Wrist" }, correct = "Brush" },
+            new Pattern { prompt = "Find the next value: Ring, Brush, ..", answers = new string[] { "Sign", "Paper" }, correct = "Sign" },
+            new Pattern { prompt = "Find the next value: Ring, Brush, Sign, ..", answers = new string[] { "Stoop", "Stool" }, correct = "Stoop" }
         }
     };
 
@@ -75,6 +83,7 @@ public class MG_PatternController : MonoBehaviour
         if (isCorrect) {
             messages.Add("Correct!");
             correctAnswers++;
+            soundPool.PlaySound(correctSound, Vector2.zero, 2f, false);
         } else {
             countdownTimer.SubtractTime(5f);
             messages.Add("Error!");
@@ -84,6 +93,7 @@ public class MG_PatternController : MonoBehaviour
         if (correctAnswers > 3) {
             EndGameSuccessfully(true);
             messages.Add("File Recovered!");
+            soundPool.PlaySound(recoverSound, Vector2.zero, 0.8f, false);
             return messages;
         }
 
@@ -95,6 +105,7 @@ public class MG_PatternController : MonoBehaviour
             if (isCorrect) {
                 EndGameSuccessfully(true);
                 messages.Add("File Recovered!");
+                soundPool.PlaySound(recoverSound, Vector2.zero, 0.8f, false);
             } else {
                 EndGameSuccessfully(false);
                 messages.Add("File Lost!");
