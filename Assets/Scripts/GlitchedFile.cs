@@ -5,6 +5,7 @@ using TMPro;
 
 public class RandomIntervalCaller : MonoBehaviour
 {
+    public Canvas interactionUI;
     public TextMeshProUGUI displayText;
     public float textHeight = 1f;
     public float minInterval = 3f;
@@ -29,7 +30,7 @@ public class RandomIntervalCaller : MonoBehaviour
     {
         animGlitchFile = Animator.StringToHash(glitchAnimation.name);
         StartCoroutine(CallGlitchFileAtRandomIntervals());
-        displayText.gameObject.SetActive(false);
+        interactionUI.enabled = false;
 
         gameStateObject = GameObject.FindWithTag("GameState");
 
@@ -43,7 +44,7 @@ public class RandomIntervalCaller : MonoBehaviour
         
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E) && gameManager.InitializeMiniGame())
         {
-            displayText.gameObject.SetActive(false);
+            interactionUI.enabled = false;
             Destroy(gameObject);
         }
     }
@@ -53,7 +54,7 @@ public class RandomIntervalCaller : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = true;
-            displayText.gameObject.SetActive(true);
+            interactionUI.enabled = true;
             Vector3 textPosition = transform.position + new Vector3(0, textHeight, 0);
             displayText.transform.position = Camera.main.WorldToScreenPoint(textPosition);
         }
@@ -74,7 +75,7 @@ public class RandomIntervalCaller : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = false;
-            displayText.gameObject.SetActive(false);
+            interactionUI.enabled = false;
         }
     }
 

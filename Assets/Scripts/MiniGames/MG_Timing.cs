@@ -116,14 +116,12 @@ public class MG_Timing : MonoBehaviour
     }
     
     IEnumerator delay()
-{
-    yield return new WaitForSeconds(2f);
-    GameObject gameStateObject = GameObject.FindWithTag("GameState"); // Is how you get the game state
-    GameManager gameManager = gameStateObject.GetComponent<GameManager>(); // Is how you access the game state script
-    gameManager.ResetState(); // When you end the game and go to main menu
+    {
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("MainMenu");
     }
-void Shoot(GameObject bulletType)
+
+    void Shoot(GameObject bulletType)
     {
         soundPool.PlaySound(BulletSHotSound, Vector2.zero, 0.2f, false, 0.2f);
         Instantiate(bulletType, spawnPoint.position, Quaternion.identity);

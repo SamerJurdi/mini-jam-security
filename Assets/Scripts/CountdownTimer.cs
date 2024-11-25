@@ -4,6 +4,7 @@ using TMPro;
 
 public class CountdownTimer : MonoBehaviour
 {
+    public Canvas ui;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI lostTimeText;
     public float startTimeInSeconds = 80f;
@@ -78,10 +79,12 @@ public class CountdownTimer : MonoBehaviour
     }
 
     public void PauseTimer() {
+        ui.enabled = false;
         isPaused = true;
     }
 
     public void ResumeTimer() {
+        ui.enabled = true;;
         isPaused = false;
     }
 

@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     private MG_PatternController mg_PatternController;
     private bool miniGameInProgress = false;
     private List<GameObject> allObjectsToToggle = new List<GameObject>();
-    private GameObject interactionTextObject;
+    private GameObject interactionUI;
     private CountdownTimer countdownTimer;
 
     private int numberOfInfectedFiles = 2;
@@ -47,12 +47,13 @@ public class GameManager : MonoBehaviour
         if (playerObject != null)
             allObjectsToToggle.Add(playerObject);
 
-        interactionTextObject = GameObject.FindWithTag("InteractionText");
-        if (interactionTextObject != null)
-            allObjectsToToggle.Add(interactionTextObject);
+        interactionUI = GameObject.FindWithTag("InteractionUI");
+        if (interactionUI != null)
+            allObjectsToToggle.Add(interactionUI);
     }
 
     public void ResetState() {
+        Destroy(gameObject);
         miniGameInProgress = false;
         numberOfInfectedFiles = 2;
         infectedFilesTested = 0;
@@ -125,7 +126,7 @@ public class GameManager : MonoBehaviour
             if (obj != null)
                 obj.SetActive(isActive);
         }
-        if (interactionTextObject != null)
-            interactionTextObject.SetActive(false);
+        if (interactionUI != null)
+            interactionUI.SetActive(false);
     }
 }

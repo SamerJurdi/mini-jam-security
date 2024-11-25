@@ -46,9 +46,6 @@ public class PlayerTiming : MonoBehaviour
     IEnumerator delay()
     {
         yield return new WaitForSeconds(0.3f);
-        GameObject gameStateObject = GameObject.FindWithTag("GameState"); // Is how you get the game state
-        GameManager gameManager = gameStateObject.GetComponent<GameManager>(); // Is how you access the game state script
-        gameManager.ResetState(); // When you end the game and go to main menu
         SceneManager.LoadScene("MainMenu");
         
     }
