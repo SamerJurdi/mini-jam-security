@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerTiming : MonoBehaviour
 {
@@ -16,10 +13,19 @@ public class PlayerTiming : MonoBehaviour
     public AudioClip hit;
     public GameObject endScreen;
 
+    private GameObject gameStateObject;
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
         soundPool = GameObject.Find("AudioPool").GetComponent<SoundPool>();
+        gameStateObject = GameObject.FindWithTag("GameState");
+
+        if (gameStateObject != null)
+        {
+            gameManager = gameStateObject.GetComponent<GameManager>();
+        }
     }
 
     // Update is called once per frame
@@ -46,8 +52,7 @@ public class PlayerTiming : MonoBehaviour
     IEnumerator delay()
     {
         yield return new WaitForSeconds(0.3f);
-        SceneManager.LoadScene("MainMenu");
-        
+        gameManager.EndGame();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

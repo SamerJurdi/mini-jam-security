@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MG_Timing : MonoBehaviour
@@ -37,8 +35,9 @@ public class MG_Timing : MonoBehaviour
     public AudioClip BulletSHotSound;
     public AudioClip woosh;
     public AudioClip BossExplode;
-    
 
+    private GameObject gameStateObject;
+    private GameManager gameManager;
 
     void Start()
     {
@@ -48,6 +47,12 @@ public class MG_Timing : MonoBehaviour
         typeOfShot = UnityEngine.Random.Range(0, projectiles.Length);
         BossHealthBar.maxValue = BossHealth;
         soundPool = GameObject.Find("AudioPool").GetComponent<SoundPool>();
+        gameStateObject = GameObject.FindWithTag("GameState");
+
+        if (gameStateObject != null)
+        {
+            gameManager = gameStateObject.GetComponent<GameManager>();
+        }
     }
 
     void Update()
@@ -118,7 +123,7 @@ public class MG_Timing : MonoBehaviour
     IEnumerator delay()
     {
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("MainMenu");
+        gameManager.EndGame();
     }
 
     void Shoot(GameObject bulletType)

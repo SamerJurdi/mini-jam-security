@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class CountdownTimer : MonoBehaviour
@@ -31,7 +30,7 @@ public class CountdownTimer : MonoBehaviour
             else
             {
                 remainingTime = 0f;
-                gameManager.GameFailed();
+                gameManager.EndGame();
             }
         }
 

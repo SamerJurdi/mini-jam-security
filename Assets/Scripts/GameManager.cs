@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public enum MiniGame
 {
     Pattern,
-    Decipher // TODO: For the second terminal mini-game
+    //Decipher // TODO: For the second terminal mini-game
 }
 
 public class GameManager : MonoBehaviour
@@ -89,8 +89,10 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CloseTerminal());
     }
 
-    public void GameFailed() {
+    public void EndGame() {
         // TODO: Disable all UIs and enable death canvas (semi transparent panel with Play again button and main picture)
+        SceneManager.LoadScene("MainMenu");
+        Destroy(gameObject);
     }
 
     private IEnumerator CloseTerminal()

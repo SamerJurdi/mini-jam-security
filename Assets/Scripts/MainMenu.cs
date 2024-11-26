@@ -12,13 +12,6 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
-
-    void Start() {
-        GameObject gameStateObject = GameObject.FindWithTag("GameState");
-        if (gameStateObject != null) {
-            Destroy(gameStateObject);
-        }
-    }
 }
     
 
